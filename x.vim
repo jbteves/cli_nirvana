@@ -10,3 +10,6 @@ set nocompatible
 filetype indent plugin on 
 " Syntax highlighting; just do it
 syntax on
+" Set search casing
+set ignorecase
+set smartcase
