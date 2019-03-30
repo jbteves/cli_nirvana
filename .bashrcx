@@ -1,6 +1,0 @@
-# .bashrcx
-# 
-# .bashrc extension
-
-# Allow git to auto-complete 
-source ~/git-completion.bash
