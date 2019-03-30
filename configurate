@@ -47,6 +47,7 @@ shift $((OPTIND -1))
 # Array of involved programs
 declare -a programs=("vim"
                     "tmux"
+                    "curl"
                     )
 
 # Check to see if programs exist
@@ -82,6 +83,17 @@ if [[ ${#uninstalled[@]} != 0 ]]; then
     fi
 fi
 
-# Add sources
-echo "source $configpath/.bashrcx" >> ~/.bashrc
-echo "source $configpath/x.vim" >> ~/.vimrc
+# Check to see if sources need to be updated or added
+# .bashrcx
+if [[ ! $(grep -w .bashrcx ~/.bashrc) ]]; then
+    echo "source $configpath/.bashrcx" >> ~/.bashrc
+fi
+# x.vim
+if [[ ! $(grep -w x.vim ~/.vimrc) ]]; then
+    echo "source $configpath/x.vim" >> ~/.vimrc
+fi
+# Check to see if git bash completion available
+if [[ ! -f ~/git-completion.bash ]]; then
+    echo "git bash completion not found, obtaining..."
+    curl -o ~/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+fi
