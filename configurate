@@ -1,0 +1,87 @@
+#!/bin/bash
+# configurate
+# 
+# Author: Joshua B. Teves
+# Purpose: configurate my custom CLI configurations and .rc files on a
+# new machine.
+
+# Usage
+usage()
+{
+    echo "Usage: configurate [opts]"
+    echo "  -h show this help text"
+    echo "  -l generate install list for missing programs"
+    echo "  -p custom configuration location path"
+}
+
+# Handle options
+if [[ "#$" == 0 ]]; then
+    usage
+    exit
+fi
+
+# defaults
+install_only=false
+configpath="~/cli_nirvana"
+while getopts ":hlp::" opt 
+do
+    case ${opt} in
+        h ) # help text
+            usage
+            exit
+            ;;
+        l ) # install list
+            install_only=true
+            ;;
+	p ) # custom path for configurate
+            configpath=$OPTARG
+            ;;
+        \? ) # error
+            usage
+            echo "Invalid option: $OPTARG" 1>&2
+            ;;
+    esac
+done
+shift $((OPTIND -1))
+
+# Array of involved programs
+declare -a programs=("vim"
+                    "tmux"
+                    )
+
+# Check to see if programs exist
+# If they don't, 
+#   print to stderr if configurating OR
+#   output list of programs 
+declare -a uninstalled=()
+for i in "${programs[@]}"
+do
+    if [[ ! $(which "$i") ]]; then
+        uninstalled+=("$i")
+    fi
+done
+
+# Attempt to install
+if [[ ${#uninstalled[@]} != 0 ]]; then
+    if [[ "$install_only" = false ]]; then
+        if [[ "$OSTYPE" == "linux-gnu" ]]; then
+            if [[ $(which apt-get) ]]; then
+                sudo apt-get install "${uninstalled[@]}"
+            elif [[ $(which yum) ]]; then
+                sudo yum install "${uninstalled[@]}"
+            else
+                echo 1>&2 "Cannot find apt-get or yum. Please pipe"
+                echo 1>&2 "configurate -i"
+                echo 1>&2 "into the appropriate package manager"
+            fi
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            brew install "{$uninstalled[@]}"
+        fi
+    else
+        echo "${uninstalled[@]}"
+    fi
+fi
+
+# Add sources
+echo "source $configpath/.bashrcx" >> ~/.bashrc
+echo "source $configpath/x.vim" >> ~/.vimrc
