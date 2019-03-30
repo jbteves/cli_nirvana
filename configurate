@@ -86,11 +86,11 @@ fi
 # Check to see if sources need to be updated or added
 # .bashrcx
 if [[ ! $(grep -w .bashrcx ~/.bashrc) ]]; then
-    echo "source $configpath/.bashrcx" >> ~/.bashrc
+    echo "source $configpath/dotfilex/.bashrcx" >> ~/.bashrc
 fi
 # x.vim
 if [[ ! $(grep -w x.vim ~/.vimrc) ]]; then
-    echo "source $configpath/x.vim" >> ~/.vimrc
+    echo "source $configpath/dotfilex/x.vim" >> ~/.vimrc
 fi
 # Check to see if git bash completion available
 if [[ ! -f ~/git-completion.bash ]]; then
