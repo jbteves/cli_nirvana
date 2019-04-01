@@ -4,3 +4,6 @@
 
 # Allow git to auto-complete 
 source ~/git-completion.bash
+
+# Add handy aliases
+alias gpgo="g++ -std=c++11 -g -lm"
