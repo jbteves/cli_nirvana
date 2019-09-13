@@ -85,12 +85,12 @@ fi
 
 # Check to see if sources need to be updated or added
 # .bashrcx
-if [[ ! $(grep -w .bashrcx ~/.bashrc) ]]; then
-    echo "source $configpath/dotfilex/.bashrcx" >> ~/.bashrc
+if [[ ! $(grep -w bashrcx ~/.bashrc) ]]; then
+    echo "source $configpath/dotfilex/bashrcx" >> ~/.bashrc
 fi
 # x.vim
-if [[ ! $(grep -w x.vim ~/.vimrc) ]]; then
-    echo "source $configpath/dotfilex/x.vim" >> ~/.vimrc
+if [[ ! $(grep -w vimx ~/.vimrc) ]]; then
+    echo "source $configpath/dotfilex/vimx" >> ~/.vimrc
 fi
 # Check to see if git bash completion available
 if [[ ! -f ~/git-completion.bash ]]; then
@@ -98,7 +98,7 @@ if [[ ! -f ~/git-completion.bash ]]; then
     curl -o ~/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 fi
 # Check to see if git config sources this repo
-if [[ ! $(grep -w gitconfig ~/.gitconfig) ]]; then
-    printf "[include]\n\tpath = $configpath/dotfilex/gitconfig" >> \
+if [[ ! $(grep -w gitconfigx ~/.gitconfig) ]]; then
+    printf "[include]\n\tpath = $configpath/dotfilex/gitconfigx" >> \
         ~/.gitconfig
 fi
