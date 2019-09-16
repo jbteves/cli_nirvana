@@ -1,3 +1,5 @@
+[core]
+    editor = vim
 [alias]
     slog = log --prety=\"%C(red)%h %C(green)%s\"
     stat = status -s
